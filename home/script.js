@@ -3,24 +3,53 @@ function scrollToSection(id) {
   document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
 }
 
-// Handle form submit
-const form = document.getElementById('contactForm');
-form.addEventListener('submit', function(e) {
-  e.preventDefault();
+// Tab switch for service categories
+function showCategory(category) {
+  const categories = document.querySelectorAll('.services-category');
+  const buttons = document.querySelectorAll('.tab-button');
 
-  const name = form.name.value.trim();
-  const email = form.email.value.trim();
-  const phone = form.phone.value.trim();
-  const message = form.message.value.trim();
+  categories.forEach(cat => cat.classList.add('hidden'));
+  buttons.forEach(btn => btn.classList.remove('active'));
 
-  if (!name || !email || !message) {
-    alert('Please fill in all required fields.');
-    return;
+  document.getElementById(category).classList.remove('hidden');
+  event.target.classList.add('active');
+}
+
+// Welcome screen removal
+window.addEventListener('load', () => {
+  const welcomeScreen = document.getElementById('welcome-screen');
+  if (welcomeScreen) {
+    setTimeout(() => {
+      welcomeScreen.remove();
+    }, 3000);
   }
+});
 
-  // This is just a demo alert, no backend email sending
-  alert(`Thank you, ${name}! Your message has been received. We will contact you soon.`);
+// Call & WhatsApp popup functionality
+document.addEventListener("DOMContentLoaded", function () {
+  const callButton = document.getElementById('callButton');
+  const popup = document.getElementById('popup');
+  const closeBtn = document.getElementById('closePopupBtn');
+  const copyBtn = document.getElementById('copyBtn');
+  const phoneNumber = document.getElementById('phoneNumber');
 
-  // Reset form
-  form.reset();
+  if (callButton && popup && closeBtn && copyBtn && phoneNumber) {
+    callButton.addEventListener('click', function () {
+      popup.style.display = 'block';
+    });
+
+    closeBtn.addEventListener('click', function () {
+      popup.style.display = 'none';
+    });
+
+    copyBtn.addEventListener('click', function () {
+      navigator.clipboard.writeText(phoneNumber.innerText.trim())
+        .then(() => {
+          alert("Phone number copied to clipboard!");
+        })
+        .catch(err => {
+          console.error("Failed to copy: ", err);
+        });
+    });
+  }
 });
