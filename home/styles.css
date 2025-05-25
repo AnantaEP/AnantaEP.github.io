@@ -21,10 +21,14 @@ header {
 }
 
 header h1 {
-  font-size: 2.5rem;
+  font-size: 1.6rem;
   margin-bottom: 5px;
 }
-
+header h2 {
+  font-size: 1.5rem;
+  margin-bottom: 5px;
+  color: white;
+}
 header p {
   font-size: 1.1rem;
   font-weight: 300;
@@ -45,6 +49,7 @@ nav a {
   font-weight: 600;
   font-size: 1.1rem;
   transition: color 0.3s ease;
+  
 }
 
 nav a:hover {
@@ -105,37 +110,15 @@ h2 {
 }
 
 /* Contact form */
-form {
-  max-width: 600px;
-  background: white;
-  padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  margin: 0 auto;
+.contact-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
 }
 
-label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
-}
-
-input, textarea {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-  border: 2px solid #ccc;
-  border-radius: 6px;
-  font-size: 1rem;
-  transition: border-color 0.3s ease;
-}
-
-input:focus, textarea:focus {
-  border-color: #0a9396;
-  outline: none;
-}
-
-button {
+.contact-buttons button,
+.contact-buttons a {
   background: #0a9396;
   color: white;
   border: none;
@@ -143,12 +126,35 @@ button {
   font-size: 1.1rem;
   border-radius: 6px;
   cursor: pointer;
+  text-decoration: none;
+  text-align: center;
   transition: background 0.3s ease;
 }
 
-button:hover {
+.contact-buttons button:hover,
+.contact-buttons a:hover {
   background: #005f73;
 }
+
+.popup {
+  display: none;
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -30%);
+  background: white;
+  border: 2px solid #0a9396;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  text-align: center;
+}
+
+.contact-buttons i {
+  margin-right: 8px;
+}
+
 
 /* Footer */
 footer {
@@ -160,17 +166,153 @@ footer {
   margin-top: 50px;
 }
 
-/* Responsive */
 @media(max-width: 700px) {
   nav {
-    flex-direction: column;
+    flex-wrap: wrap;  /* allow links to wrap if needed */
+    justify-content: center;
   }
+
   nav a {
-    margin: 10px 0;
+    margin: 10px;
   }
 
   .services-list {
     flex-direction: column;
     align-items: center;
   }
+}
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tab-button {
+  padding: 10px 20px;
+  background: #0a9396;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.tab-button:hover,
+.tab-button.active {
+  background: #005f73;
+}
+
+.services-category {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.services-category ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+.services-category li {
+  margin-bottom: 10px;
+  font-size: 1.05rem;
+}
+
+.hidden {
+  display: none;
+}
+
+@media(max-width: 700px) {
+  .tabs {
+    flex-wrap: wrap; /* already defined, allows wrapping if needed */
+    justify-content: center;
+  }
+
+  .tab-button {
+    width: auto; /* prevent full width */
+    min-width: 100px;
+    flex: 1 1 auto;
+  }
+}
+
+#welcome-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #005f73;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeOut 3s forwards;
+}
+
+.welcome-content {
+  text-align: center;
+  color: white;
+  animation: zoomIn 1s ease;
+}
+
+.welcome-content h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.welcome-content p {
+  font-size: 1.2rem;
+  font-weight: 300;
+}
+
+/* Animations */
+@keyframes zoomIn {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+    display: none;
+  }
+}
+#welcome-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #005f73;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+}
+
+#animated-welcome {
+  color: white;
+  font-size: 3rem;
+  transition: transform 1s ease, top 1s ease, left 1s ease, font-size 1s ease;
+  position: absolute;
 }
